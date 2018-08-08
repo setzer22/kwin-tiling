@@ -80,6 +80,7 @@ function TilingManager() {
     this.tiles = new TileList();
     /**
      * Current screen, needed to be able to track screen changes.
+     * @deprecated This was never updated and it's just better to query workspace.activeScreen everytime
      */
     this._currentScreen = workspace.activeScreen;
     /**
@@ -412,7 +413,7 @@ function TilingManager() {
                               "Meta+*",
                               function() {
                                   try {
-                                      self.layouts[self._currentDesktop - 1][self._currentScreen].increaseMaster();
+                                      self.layouts[self._currentDesktop - 1][workspace.activeScreen].increaseMaster();
                                   } catch(err) {
                                       print(err, "in Increase-Number-Of-Masters");
                                   }
@@ -422,7 +423,7 @@ function TilingManager() {
                               "Meta+_",
                               function() {
                                   try {
-                                      self.layouts[self._currentDesktop - 1][self._currentScreen].decrementMaster();
+                                      self.layouts[self._currentDesktop - 1][workspace.activeScreen].decrementMaster();
                                   } catch(err) {
                                       print(err, "in Decrease-Number-Of-Masters");
                                   }
@@ -598,7 +599,7 @@ TilingManager.prototype._createDefaultLayouts = function(desktop) {
 };
 
 TilingManager.prototype._getCurrentLayoutType = function() {
-    var currentLayout = this._getLayouts(this._currentDesktop, this._currentScreen)[0];
+    var currentLayout = this._getLayouts(this._currentDesktop, workspace.activeScreen)[0];
     return currentLayout.layoutType;
 };
 
@@ -896,7 +897,7 @@ TilingManager.prototype._moveTile = function(direction) {
     if (desktop == -1 || client.onAllDesktops == true) {
         desktop = this._currentDesktop;
     }
-    var layout = this._getLayouts(desktop, this._currentScreen)[0];
+    var layout = this._getLayouts(desktop, workspace.activeScreen)[0];
     // Add gaps so we don't land in one
     if (direction == Direction.Left) {
         var x = activeTile.rectangle.x - 1 - layout.windowsGapSizeWidth;

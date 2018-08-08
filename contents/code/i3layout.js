@@ -132,7 +132,7 @@ I3Layout.prototype.addTile = function(x, y) {
 
         this.state = 'normal';
 
-        // print(debugPrintTree(this.containerTree));
+        //print(debugPrintTree(this.containerTree));
 
     } catch(err) {
         print(err, "in I3Layout.addTile");
@@ -161,7 +161,7 @@ I3Layout.prototype.removeTile = function(tileIndex) {
         this.containerTree.recalculateSize();
         this.tiles.splice(tileIndex, 1);
 
-        print(debugPrintTree(this.containerTree));
+        //print(debugPrintTree(this.containerTree));
 
     } catch(err) {
         print(err, "in I3Layout.removeTile");
